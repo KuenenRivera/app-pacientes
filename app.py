@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 import sqlite3
 import json
+import os  # 🔥 ESTA LÍNEA FALTABA
 
 # 🔥 CREAR BD AUTOMÁTICAMENTE EN LA NUBE
 if not os.path.exists("database.db"):
