@@ -1,4 +1,6 @@
-import os
+from flask import Flask, render_template, request, redirect, session
+import sqlite3
+import json
 
 # 🔥 CREAR BD AUTOMÁTICAMENTE EN LA NUBE
 if not os.path.exists("database.db"):
