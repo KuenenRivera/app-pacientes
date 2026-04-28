@@ -1,0 +1,21 @@
+<h2>Reporte (Doctor)</h2>
+
+<table border="1">
+<tr>
+<th>DNI</th>
+<th>Fecha</th>
+<th>INR</th>
+<th>Dosis</th>
+</tr>
+
+{% for d in datos %}
+<tr>
+<td>{{ d[1] }}</td>
+<td>{{ d[2] }}</td>
+<td>{{ d[3] }}</td>
+<td>{{ d[4] }}</td>
+</tr>
+{% endfor %}
+</table>
+
+<a href="/logout">Salir</a>
