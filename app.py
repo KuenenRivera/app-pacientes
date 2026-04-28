@@ -1,6 +1,45 @@
-from flask import Flask, render_template, request, redirect, session
-import sqlite3
-import json
+import os
+
+# 🔥 CREAR BD AUTOMÁTICAMENTE EN LA NUBE
+if not os.path.exists("database.db"):
+    con = sqlite3.connect("database.db")
+    cur = con.cursor()
+
+    cur.execute("""
+    CREATE TABLE usuarios (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        dni TEXT,
+        nombre TEXT,
+        edad INTEGER,
+        diagnostico TEXT
+    )
+    """)
+
+    cur.execute("""
+    CREATE TABLE registros (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        dni TEXT,
+        fecha TEXT,
+        inr REAL,
+        dosis TEXT
+    )
+    """)
+
+    cur.execute("""
+    CREATE TABLE roles (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        usuario TEXT,
+        password TEXT,
+        rol TEXT
+    )
+    """)
+
+    # 🔥 USUARIOS INICIALES
+    cur.execute("INSERT INTO roles VALUES (NULL,'doctor','123','doctor')")
+    cur.execute("INSERT INTO roles VALUES (NULL,'paciente','123','paciente')")
+
+    con.commit()
+    con.close()
 
 app = Flask(__name__)
 app.secret_key = "clave_secreta"
