@@ -15,8 +15,19 @@
 
         <form method="POST">
 
+            <!-- TIPO DOCUMENTO -->
             <div class="input-group">
-                <input type="text" name="dni" placeholder="Ingrese DNI" required>
+                <select name="tipo_doc" id="tipo_doc" required>
+                    <option value="">Tipo de documento</option>
+                    <option value="dni">DNI (8 dígitos)</option>
+                    <option value="ce">Carné de extranjería (9)</option>
+                    <option value="pasaporte">Pasaporte (6-12)</option>
+                </select>
+            </div>
+
+            <!-- NUMERO -->
+            <div class="input-group">
+                <input type="text" id="dni" name="dni" placeholder="Número de documento" required>
             </div>
 
             <button>Continuar</button>
@@ -28,6 +39,43 @@
     </div>
 
 </div>
+
+<!-- VALIDACIÓN EN VIVO -->
+<script>
+const tipo = document.getElementById("tipo_doc");
+const dni = document.getElementById("dni");
+
+dni.addEventListener("input", validar);
+tipo.addEventListener("change", () => {
+    dni.value = "";
+    validar();
+});
+
+function validar() {
+    const valor = dni.value;
+    dni.classList.remove("input-error");
+
+    if (!tipo.value) return;
+
+    if (tipo.value === "dni") {
+        if (!/^\d{0,8}$/.test(valor)) {
+            dni.classList.add("input-error");
+        }
+    }
+
+    if (tipo.value === "ce") {
+        if (!/^\d{0,9}$/.test(valor)) {
+            dni.classList.add("input-error");
+        }
+    }
+
+    if (tipo.value === "pasaporte") {
+        if (valor.length > 12) {
+            dni.classList.add("input-error");
+        }
+    }
+}
+</script>
 
 </body>
 </html>

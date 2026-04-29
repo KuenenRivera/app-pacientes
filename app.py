@@ -104,7 +104,14 @@ def index():
         return "Acceso solo pacientes"
 
     if request.method == "POST":
-        dni = request.form["dni"]
+        dni = request.form["dni"].strip()
+
+        # 🔥 VALIDACIÓN PROFESIONAL (SIN CAMBIAR TU FLUJO)
+        if not dni.isdigit():
+            return "Error: El DNI solo debe contener números"
+
+        if len(dni) != 8:
+            return "Error: El DNI debe tener exactamente 8 dígitos"
 
         con = conectar()
         cur = con.cursor()

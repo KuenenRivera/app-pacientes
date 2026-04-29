@@ -198,3 +198,27 @@ input:invalid {
     color: #ff4b2b;
     text-decoration: underline;
 }
+
+/* ===== SELECT ===== */
+.input-group select {
+    width: 100%;
+    padding: 12px;
+
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+    font-size: 14px;
+    background: #f9f9f9;
+
+    outline: none;
+}
+
+/* ===== ERROR VISUAL ===== */
+.input-error {
+    border: 2px solid red !important;
+}
+
+
+
+
+
