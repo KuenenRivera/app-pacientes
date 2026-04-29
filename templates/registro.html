@@ -1,9 +1,45 @@
-<h2>Registro</h2>
-<p>DNI: {{ dni }}</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro Paciente</title>
 
-<form method="POST">
-Nombre: <input name="nombre"><br>
-Edad: <input name="edad"><br>
-Diagnóstico: <input name="diagnostico"><br>
-<button>Guardar</button>
-</form>
+    <!-- RESPONSIVE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body class="login-body">
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <h2>📝 Registro de Paciente</h2>
+
+        <p class="dni-text">DNI: {{ dni }}</p>
+
+        <form method="POST">
+
+            <div class="input-group">
+                <input type="text" name="nombre" placeholder="Nombre completo" required>
+            </div>
+
+            <div class="input-group">
+                <input type="number" name="edad" placeholder="Edad" required min="0" max="120">
+            </div>
+
+            <div class="input-group">
+                <input type="text" name="diagnostico" placeholder="Diagnóstico" required>
+            </div>
+
+            <button>Guardar</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

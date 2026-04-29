@@ -183,7 +183,7 @@ input:invalid {
 
 
 
-/* ======================================================================================= */
+/* =========================index============================================================== */
 /* ===== LINK LOGOUT ===== */
 .logout-link {
     display: block;
@@ -224,4 +224,21 @@ input:invalid {
 
     font-size: 14px;
     background: #f9f9f9;
+}
+
+
+/* =============registro========================================================================== */
+
+/* TEXTO DNI */
+.dni-text {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* INPUT NUMERO (edad) sin flechas feas en algunos navegadores */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
