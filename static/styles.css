@@ -242,3 +242,63 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+
+/* =============edicion========================================================================== */
+
+/* SUBTITULO */
+.subtitulo {
+    margin: 20px 0 10px;
+    font-size: 16px;
+    color: #444;
+}
+
+/* GRID DOSIS */
+.dosis-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+/* TARJETA POR DIA */
+.dia-card {
+    background: #f9f9f9;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #eee;
+}
+
+/* NOMBRE DIA */
+.dia-nombre {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* RADIO GROUP */
+.radio-group {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+/* LABEL INPUT */
+.input-group label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+
+    .dosis-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .radio-group {
+        justify-content: space-around;
+    }
+}
