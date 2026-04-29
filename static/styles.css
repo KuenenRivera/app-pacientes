@@ -1,6 +1,7 @@
+/* ===== BODY ===== */
 body.login-body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh; /* 🔥 FIX móvil */
     font-family: Arial, sans-serif;
 
     background: linear-gradient(135deg, #1d4350, #a43931);
@@ -8,30 +9,45 @@ body.login-body {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    padding: 20px; /* 🔥 evita que se pegue en bordes en móvil */
 }
 
+/* ===== CONTENEDOR ===== */
 .login-container {
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
+/* ===== CARD ===== */
 .login-card {
     background: white;
     padding: 40px;
     width: 320px;
+    max-width: 100%; /* 🔥 evita desbordes en móvil */
 
     border-radius: 15px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.3);
 
     text-align: center;
+
+    transition: transform 0.2s ease;
 }
 
+/* efecto elegante */
+.login-card:hover {
+    transform: translateY(-3px);
+}
+
+/* ===== TITULO ===== */
 .login-card h2 {
     margin-bottom: 20px;
     color: #333;
 }
 
+/* ===== INPUTS ===== */
 .login-card input {
     width: 100%;
     padding: 12px;
@@ -43,11 +59,14 @@ body.login-body {
     font-size: 14px;
 }
 
+/* focus bonito */
 .login-card input:focus {
     border-color: #a43931;
     outline: none;
+    box-shadow: 0 0 5px rgba(164, 57, 49, 0.3);
 }
 
+/* ===== BOTÓN ===== */
 .login-card button {
     width: 100%;
     padding: 12px;
@@ -61,8 +80,83 @@ body.login-body {
 
     font-size: 16px;
     cursor: pointer;
+
+    transition: all 0.2s ease;
 }
 
 .login-card button:hover {
     opacity: 0.9;
+    transform: scale(1.02);
+}
+
+/* ========================= */
+/* 📱 RESPONSIVE (CELULARES) */
+/* ========================= */
+
+@media (max-width: 600px) {
+
+    body.login-body {
+        padding: 15px;
+    }
+
+    .login-card {
+        width: 100%;
+        padding: 25px;
+        border-radius: 12px;
+    }
+
+    .login-card h2 {
+        font-size: 20px;
+    }
+
+    .login-card input {
+        padding: 14px;
+        font-size: 16px; /* 🔥 mejor para táctil */
+    }
+
+    .login-card button {
+        padding: 14px;
+        font-size: 16px;
+    }
+
+}
+
+/* ========================= */
+/* 📱 CELULARES MUY PEQUEÑOS */
+/* ========================= */
+
+@media (max-width: 400px) {
+
+    .login-card {
+        padding: 20px;
+    }
+
+    .login-card h2 {
+        font-size: 18px;
+    }
+
+}
+
+/* ICONOS EN INPUT */
+.input-group {
+    position: relative;
+}
+
+.input-group i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.input-group input {
+    padding-left: 35px; /* espacio para icono */
+}
+
+/* FOOTER */
+.login-footer {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #888;
 }

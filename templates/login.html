@@ -1,8 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 🔥 CLAVE PARA CELULAR -->
+    
     <title>Login - Sistema Clínico</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <!-- 🔥 Iconos (opcional pero PRO) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body class="login-body">
@@ -11,16 +19,33 @@
 
     <div class="login-card">
 
-        <h2>🏥 Sistema Clínico</h2>
+        <!-- 🏥 Título -->
+        <h2><i class="fa-solid fa-hospital"></i> Sistema Clínico</h2>
 
+        <!-- 📌 Formulario -->
         <form method="POST">
 
-            <input type="text" name="usuario" placeholder="Usuario" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
+            <!-- Usuario -->
+            <div class="input-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" name="usuario" placeholder="Usuario" required>
+            </div>
 
-            <button>Ingresar</button>
+            <!-- Password -->
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" name="password" placeholder="Contraseña" required>
+            </div>
+
+            <!-- Botón -->
+            <button type="submit">
+                <i class="fa-solid fa-right-to-bracket"></i> Ingresar
+            </button>
 
         </form>
+
+        <!-- Footer -->
+        <p class="login-footer">© Sistema Médico 2026</p>
 
     </div>
 
