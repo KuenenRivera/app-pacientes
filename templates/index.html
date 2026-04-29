@@ -2,6 +2,10 @@
 <html>
 <head>
     <title>Ingreso DNI</title>
+
+    <!-- RESPONSIVE (IMPORTANTE PARA CELULAR) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 
@@ -13,7 +17,8 @@
 
         <h2>🆔 Ingreso de Paciente</h2>
 
-        <form method="POST">
+        <!-- 🔥 FORM CON VALIDACIÓN -->
+        <form method="POST" onsubmit="return validarSubmit()">
 
             <!-- TIPO DOCUMENTO -->
             <div class="input-group">
@@ -30,6 +35,9 @@
                 <input type="text" id="dni" name="dni" placeholder="Número de documento" required>
             </div>
 
+            <!-- 🔥 MENSAJE ERROR -->
+            <div id="error-msg" class="error-msg"></div>
+
             <button>Continuar</button>
 
         </form>
@@ -40,20 +48,32 @@
 
 </div>
 
-<!-- VALIDACIÓN EN VIVO -->
+<!-- ========================= -->
+<!-- 🔥 VALIDACIÓN PRO -->
+<!-- ========================= -->
 <script>
+
 const tipo = document.getElementById("tipo_doc");
 const dni = document.getElementById("dni");
+const error = document.getElementById("error-msg");
 
+/* VALIDACIÓN EN TIEMPO REAL */
 dni.addEventListener("input", validar);
 tipo.addEventListener("change", () => {
     dni.value = "";
-    validar();
+    limpiar();
 });
 
+/* LIMPIAR ERROR */
+function limpiar() {
+    dni.classList.remove("input-error");
+    error.innerText = "";
+}
+
+/* VALIDAR MIENTRAS ESCRIBE */
 function validar() {
     const valor = dni.value;
-    dni.classList.remove("input-error");
+    limpiar();
 
     if (!tipo.value) return;
 
@@ -75,6 +95,39 @@ function validar() {
         }
     }
 }
+
+/* VALIDAR AL ENVIAR */
+function validarSubmit() {
+
+    const valor = dni.value;
+    limpiar();
+
+    if (!tipo.value) {
+        error.innerText = "Selecciona un tipo de documento";
+        return false;
+    }
+
+    if (tipo.value === "dni" && !/^\d{8}$/.test(valor)) {
+        error.innerText = "El DNI debe tener exactamente 8 dígitos";
+        dni.classList.add("input-error");
+        return false;
+    }
+
+    if (tipo.value === "ce" && !/^\d{9}$/.test(valor)) {
+        error.innerText = "El CE debe tener 9 dígitos";
+        dni.classList.add("input-error");
+        return false;
+    }
+
+    if (tipo.value === "pasaporte" && (valor.length < 6 || valor.length > 12)) {
+        error.innerText = "El pasaporte debe tener entre 6 y 12 caracteres";
+        dni.classList.add("input-error");
+        return false;
+    }
+
+    return true; // ✅ ENVÍA AL BACKEND
+}
+
 </script>
 
 </body>

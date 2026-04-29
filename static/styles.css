@@ -199,26 +199,29 @@ input:invalid {
     text-decoration: underline;
 }
 
-/* ===== SELECT ===== */
-.input-group select {
+/* ERROR VISUAL INPUT */
+.input-error {
+    border: 2px solid red !important;
+    background: #ffecec;
+}
+
+/* MENSAJE ERROR */
+.error-msg {
+    margin-top: 10px;
+    font-size: 13px;
+    color: red;
+    text-align: left;
+}
+
+/* SELECT BONITO */
+.login-card select {
     width: 100%;
     padding: 12px;
+    margin: 10px 0;
 
     border: 1px solid #ddd;
     border-radius: 10px;
 
     font-size: 14px;
     background: #f9f9f9;
-
-    outline: none;
 }
-
-/* ===== ERROR VISUAL ===== */
-.input-error {
-    border: 2px solid red !important;
-}
-
-
-
-
-
