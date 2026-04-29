@@ -1,7 +1,33 @@
-<h2>Ingrese DNI</h2>
-<form method="POST">
-<input name="dni">
-<button>Continuar</button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ingreso DNI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
 
-<a href="/logout">Salir</a>
+<body class="login-body">
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <h2>🆔 Ingreso de Paciente</h2>
+
+        <form method="POST">
+
+            <div class="input-group">
+                <input type="text" name="dni" placeholder="Ingrese DNI" required>
+            </div>
+
+            <button>Continuar</button>
+
+        </form>
+
+        <a href="/logout" class="logout-link">Cerrar sesión</a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

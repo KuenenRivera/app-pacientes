@@ -179,3 +179,22 @@ input:invalid {
     }
 
 }
+
+
+
+
+/* ======================================================================================= */
+/* ===== LINK LOGOUT ===== */
+.logout-link {
+    display: block;
+    margin-top: 15px;
+    font-size: 13px;
+    color: #a43931;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.logout-link:hover {
+    color: #ff4b2b;
+    text-decoration: underline;
+}
