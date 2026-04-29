@@ -1,6 +1,24 @@
-<h2>Login</h2>
-<form method="POST">
-Usuario: <input name="usuario"><br>
-Password: <input type="password" name="password"><br>
-<button>Ingresar</button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="login-body">
+
+<div class="login-container">
+    <h2>🔐 Sistema de Pacientes</h2>
+
+    <form method="POST">
+        <label>Usuario</label>
+        <input type="text" name="usuario" required>
+
+        <label>Password</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Ingresar</button>
+    </form>
+</div>
+
+</body>
+</html>
