@@ -1,7 +1,7 @@
 /* ===== BODY ===== */
 body.login-body {
     margin: 0;
-    min-height: 100vh; /* 🔥 FIX móvil */
+    min-height: 100vh;
     font-family: Arial, sans-serif;
 
     background: linear-gradient(135deg, #1d4350, #a43931);
@@ -10,7 +10,7 @@ body.login-body {
     justify-content: center;
     align-items: center;
 
-    padding: 20px; /* 🔥 evita que se pegue en bordes en móvil */
+    padding: 20px;
 }
 
 /* ===== CONTENEDOR ===== */
@@ -26,7 +26,7 @@ body.login-body {
     background: white;
     padding: 40px;
     width: 320px;
-    max-width: 100%; /* 🔥 evita desbordes en móvil */
+    max-width: 100%;
 
     border-radius: 15px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.3);
@@ -36,7 +36,6 @@ body.login-body {
     transition: transform 0.2s ease;
 }
 
-/* efecto elegante */
 .login-card:hover {
     transform: translateY(-3px);
 }
@@ -47,23 +46,48 @@ body.login-body {
     color: #333;
 }
 
-/* ===== INPUTS ===== */
-.login-card input {
-    width: 100%;
-    padding: 12px;
+/* ===== INPUT GROUP (ICONOS) ===== */
+.input-group {
+    position: relative;
     margin: 10px 0;
+}
 
-    border: 1px solid #ccc;
-    border-radius: 8px;
-
+/* icono */
+.input-group i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
     font-size: 14px;
 }
 
-/* focus bonito */
-.login-card input:focus {
-    border-color: #a43931;
+/* ===== INPUTS ===== */
+.input-group input {
+    width: 100%;
+    padding: 12px 12px 12px 38px;
+
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+    font-size: 14px;
+    background: #f9f9f9;
+
     outline: none;
-    box-shadow: 0 0 5px rgba(164, 57, 49, 0.3);
+    transition: all 0.2s ease;
+}
+
+/* 🔥 FIX líneas raras */
+.input-group input:focus {
+    border-color: #ff4b2b;
+    background: #fff;
+
+    box-shadow: 0 0 0 2px rgba(255, 75, 43, 0.2);
+}
+
+/* evita estilos raros del navegador */
+input:invalid {
+    box-shadow: none;
 }
 
 /* ===== BOTÓN ===== */
@@ -76,7 +100,7 @@ body.login-body {
     color: white;
 
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
 
     font-size: 16px;
     cursor: pointer;
@@ -87,6 +111,13 @@ body.login-body {
 .login-card button:hover {
     opacity: 0.9;
     transform: scale(1.02);
+}
+
+/* ===== FOOTER ===== */
+.login-footer {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #888;
 }
 
 /* ========================= */
@@ -109,9 +140,9 @@ body.login-body {
         font-size: 20px;
     }
 
-    .login-card input {
-        padding: 14px;
-        font-size: 16px; /* 🔥 mejor para táctil */
+    .input-group input {
+        padding: 14px 14px 14px 40px;
+        font-size: 16px;
     }
 
     .login-card button {
@@ -135,28 +166,4 @@ body.login-body {
         font-size: 18px;
     }
 
-}
-
-/* ICONOS EN INPUT */
-.input-group {
-    position: relative;
-}
-
-.input-group i {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #888;
-}
-
-.input-group input {
-    padding-left: 35px; /* espacio para icono */
-}
-
-/* FOOTER */
-.login-footer {
-    margin-top: 15px;
-    font-size: 12px;
-    color: #888;
 }
