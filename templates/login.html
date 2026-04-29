@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Login - Sistema Médico</title>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body class="login-body">
 
-<div class="login-container">
-    <h2>🔐 Sistema de Pacientes</h2>
+<div class="login-box">
+
+    <div class="login-header">
+        🏥 Sistema Clínico
+    </div>
 
     <form method="POST">
-        <label>Usuario</label>
-        <input type="text" name="usuario" required>
 
-        <label>Password</label>
-        <input type="password" name="password" required>
+        <div class="input-group">
+            <label>Usuario</label>
+            <input type="text" name="usuario" required>
+        </div>
 
-        <button type="submit">Ingresar</button>
+        <div class="input-group">
+            <label>Contraseña</label>
+            <input type="password" name="password" required>
+        </div>
+
+        <button class="btn-login">Ingresar</button>
+
     </form>
+
+    <p class="footer">© Sistema Médico 2026</p>
+
 </div>
 
 </body>
