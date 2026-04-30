@@ -189,7 +189,7 @@ def edicion(dni):
 
 
 # -------------------------
-# DOCTOR → REPORTE (🔥 ARREGLADO)
+# DOCTOR → REPORTE (🔥 FIX ERROR)
 # -------------------------
 @app.route("/reporte")
 def reporte():
@@ -205,11 +205,16 @@ def reporte():
     registros = []
 
     for f in filas:
+        try:
+            dosis = json.loads(f[4]) if f[4] else {}
+        except:
+            dosis = {}
+
         registros.append({
             "dni": f[1],
             "fecha": f[2],
             "inr": f[3],
-            "dosis": json.loads(f[4]) if f[4] else {}
+            "dosis": dosis
         })
 
     return render_template("reporte.html", registros=registros)
