@@ -210,15 +210,20 @@ def reporte():
         except:
             dosis = {}
 
+        # 🔥 FIX CLAVE AQUÍ
+        try:
+            inr_valor = float(f[3]) if f[3] else 0
+        except:
+            inr_valor = 0
+
         registros.append({
             "dni": f[1],
             "fecha": f[2],
-            "inr": f[3],
+            "inr": inr_valor,  # 🔥 YA ES NUMÉRICO
             "dosis": dosis
         })
 
     return render_template("reporte.html", registros=registros)
-
 
 # -------------------------
 # MAIN
