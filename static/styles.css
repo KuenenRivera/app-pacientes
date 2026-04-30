@@ -307,57 +307,37 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* =============reporte========================================================================= */
 
-/* TABLA */
-.tabla-reporte {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+.badge {
+    background: #eee;
+    padding: 4px 8px;
+    border-radius: 8px;
+    margin: 2px;
+    display: inline-block;
+    font-size: 12px;
 }
 
-.tabla-reporte th {
-    background: #1d4350;
-    color: white;
-    padding: 10px;
-    font-size: 14px;
-}
-
-.tabla-reporte td {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    font-size: 13px;
-}
-
-/* FILAS */
-.tabla-reporte tr:hover {
-    background: #f5f5f5;
-}
-
-/* DOSIS MINI */
 .dosis-mini {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 4px;
 }
 
-.dosis-mini span {
-    background: #eee;
-    padding: 4px 6px;
-    border-radius: 5px;
-    font-size: 11px;
+.tabla-reporte {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-/* COLORES INR */
-.inr-bajo {
-    color: orange;
-    font-weight: bold;
+.tabla-reporte th {
+    background: #244b55;
+    color: white;
+    padding: 10px;
 }
 
-.inr-normal {
-    color: green;
-    font-weight: bold;
+.tabla-reporte td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
 }
 
-.inr-alto {
-    color: red;
-    font-weight: bold;
-}
+.inr-bajo { color: orange; font-weight: bold; }
+.inr-normal { color: green; font-weight: bold; }
+.inr-alto { color: red; font-weight: bold; }

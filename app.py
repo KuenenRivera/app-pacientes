@@ -189,7 +189,7 @@ def edicion(dni):
 
 
 # -------------------------
-# DOCTOR → REPORTE (🔥 FIX ERROR)
+# DOCTOR → REPORTE (🔥 FIX COMPLETO)
 # -------------------------
 @app.route("/reporte")
 def reporte():
@@ -198,7 +198,15 @@ def reporte():
 
     con = conectar()
     cur = con.cursor()
-    cur.execute("SELECT * FROM registros")
+
+    # 🔥 AQUÍ ESTÁ EL FIX IMPORTANTE (JOIN)
+    cur.execute("""
+        SELECT r.dni, u.nombre, r.fecha, r.inr, r.dosis
+        FROM registros r
+        LEFT JOIN usuarios u ON r.dni = u.dni
+        ORDER BY r.fecha DESC
+    """)
+
     filas = cur.fetchall()
     con.close()
 
@@ -210,20 +218,21 @@ def reporte():
         except:
             dosis = {}
 
-        # 🔥 FIX CLAVE AQUÍ
         try:
             inr_valor = float(f[3]) if f[3] else 0
         except:
             inr_valor = 0
 
         registros.append({
-            "dni": f[1],
+            "dni": f[0],
+            "nombre": f[1] if f[1] else "Sin nombre",
             "fecha": f[2],
-            "inr": inr_valor,  # 🔥 YA ES NUMÉRICO
+            "inr": inr_valor,
             "dosis": dosis
         })
 
     return render_template("reporte.html", registros=registros)
+
 
 # -------------------------
 # MAIN
