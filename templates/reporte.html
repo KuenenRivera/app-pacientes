@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 
-    <!-- 📊 Chart.js -->
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
@@ -16,22 +16,27 @@
 
 <div class="login-container">
 
-<div class="login-card" style="width: 95%; max-width: 1100px;">
+<div class="login-card" style="width: 95%; max-width: 1200px;">
 
     <h2>📊 Reporte Clínico</h2>
 
     <!-- 🔎 BUSCADOR -->
     <input type="text" id="buscador"
-           placeholder="Buscar por DNI o nombre..."
-           style="width:100%; padding:10px; margin-bottom:15px; border-radius:8px; border:1px solid #ccc;">
+        placeholder="Buscar por DNI o nombre..."
+        style="width:100%; padding:10px; margin-bottom:15px; border-radius:8px; border:1px solid #ccc;">
 
     <!-- 📊 KPI -->
-    <div style="margin-bottom:15px;">
-        <b>Total registros:</b> {{ registros|length }}
+    <div style="display:flex; gap:15px; margin-bottom:20px; flex-wrap:wrap;">
+        <div class="kpi-box">
+            <h3>{{ registros|length }}</h3>
+            <span>Registros</span>
+        </div>
     </div>
 
-    <!-- 📈 GRÁFICO -->
-    <canvas id="graficoINR" style="margin-bottom:20px;"></canvas>
+    <!-- 📈 GRÁFICO (CONTROLADO) -->
+    <div style="height:300px; margin-bottom:20px;">
+        <canvas id="graficoINR"></canvas>
+    </div>
 
     <!-- TABLA -->
     <table class="tabla-reporte" id="tabla">
@@ -42,7 +47,7 @@
                 <th>Nombre</th>
                 <th>Fecha</th>
                 <th>INR</th>
-                <th>Dosis Semanal</th>
+                <th>Dosis</th>
             </tr>
         </thead>
 
@@ -54,17 +59,15 @@
                 <td>{{ r.nombre if r.nombre else "—" }}</td>
                 <td>{{ r.fecha }}</td>
 
-                <!-- COLOR INR -->
                 <td class="
-                    {% if r.inr < 2 %}inr-bajo
-                    {% elif r.inr > 3 %}inr-alto
+                    {% if r.inr|float < 2 %}inr-bajo
+                    {% elif r.inr|float > 3 %}inr-alto
                     {% else %}inr-normal
                     {% endif %}
                 ">
                     {{ r.inr }}
                 </td>
 
-                <!-- DOSIS -->
                 <td>
                     <div class="dosis-mini">
                         {% for d,v in r.dosis.items() %}
@@ -84,36 +87,47 @@
 </div>
 </div>
 
-<!-- 🔎 BUSCADOR -->
+<!-- 🔎 BUSCADOR (FIX REAL) -->
 <script>
 document.getElementById("buscador").addEventListener("keyup", function() {
     let filtro = this.value.toLowerCase();
     let filas = document.querySelectorAll("#tabla tbody tr");
 
-    filas.forEach(f => {
-        let texto = f.innerText.toLowerCase();
-        f.style.display = texto.includes(filtro) ? "" : "none";
+    filas.forEach(fila => {
+        let columnas = fila.querySelectorAll("td");
+
+        let dni = columnas[0].innerText.toLowerCase();
+        let nombre = columnas[1].innerText.toLowerCase();
+
+        if (dni.includes(filtro) || nombre.includes(filtro)) {
+            fila.style.display = "";
+        } else {
+            fila.style.display = "none";
+        }
     });
 });
 </script>
 
-<!-- 📈 GRÁFICO (FIX SIN ERRORES) -->
+<!-- 📈 GRÁFICO (ARREGLADO) -->
 <script>
-const datos = {
-    labels: {{ registros | map(attribute='fecha') | list | tojson | safe }},
-    datasets: [
-        {
-            label: 'INR',
-            data: {{ registros | map(attribute='inr') | list | tojson | safe }},
-            borderWidth: 2,
-            tension: 0.3
-        }
-    ]
-};
+const labels = {{ registros | map(attribute='fecha') | list | tojson }};
+const dataINR = {{ registros | map(attribute='inr') | list | tojson }};
 
 new Chart(document.getElementById('graficoINR'), {
     type: 'line',
-    data: datos
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'INR',
+            data: dataINR,
+            borderWidth: 2,
+            tension: 0.3
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
 });
 </script>
 
