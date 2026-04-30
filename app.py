@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 import sqlite3
 import json
-import os  # 🔥 ESTA LÍNEA FALTABA
+import os
 
 # 🔥 CREAR BD AUTOMÁTICAMENTE EN LA NUBE
 if not os.path.exists("database.db"):
@@ -72,7 +72,6 @@ def login():
             session["usuario"] = usuario
             session["rol"] = user[3]
 
-            # 🔥 REDIRECCIÓN POR ROL
             if user[3] == "doctor":
                 return redirect("/reporte")
             else:
@@ -106,7 +105,6 @@ def index():
     if request.method == "POST":
         dni = request.form["dni"].strip()
 
-        # 🔥 VALIDACIÓN PROFESIONAL (SIN CAMBIAR TU FLUJO)
         if not dni.isdigit():
             return "Error: El DNI solo debe contener números"
 
@@ -140,7 +138,6 @@ def registro(dni):
         edad = request.form["edad"]
         diagnostico = request.form["diagnostico"]
 
-        # 🔥 VALIDACIÓN
         if not nombre or not edad or not diagnostico:
             return "Error: Complete todos los campos"
 
@@ -168,18 +165,15 @@ def edicion(dni):
         fecha = request.form.get("fecha")
         inr = request.form.get("inr")
 
-        # 🔥 VALIDACIÓN BÁSICA
         if not fecha or not inr:
             return "Error: Debe completar fecha e INR"
 
-        # 🔥 VALIDACIÓN DOSIS
         dias = ["lunes","martes","miercoles","jueves","viernes","sabado","domingo"]
 
         for dia in dias:
             if not request.form.get(dia):
                 return f"Error: Falta seleccionar dosis en {dia}"
 
-        # 🔥 GUARDAR
         dosis = {dia: request.form.get(dia) for dia in dias}
 
         con = conectar()
@@ -195,7 +189,7 @@ def edicion(dni):
 
 
 # -------------------------
-# DOCTOR → REPORTE
+# DOCTOR → REPORTE (🔥 ARREGLADO)
 # -------------------------
 @app.route("/reporte")
 def reporte():
@@ -205,10 +199,20 @@ def reporte():
     con = conectar()
     cur = con.cursor()
     cur.execute("SELECT * FROM registros")
-    datos = cur.fetchall()
+    filas = cur.fetchall()
     con.close()
 
-    return render_template("reporte.html", datos=datos)
+    registros = []
+
+    for f in filas:
+        registros.append({
+            "dni": f[1],
+            "fecha": f[2],
+            "inr": f[3],
+            "dosis": json.loads(f[4]) if f[4] else {}
+        })
+
+    return render_template("reporte.html", registros=registros)
 
 
 # -------------------------
