@@ -352,3 +352,77 @@ input[type=number]::-webkit-outer-spin-button {
 .inr-bajo { color: orange; font-weight: bold; }
 .inr-normal { color: green; font-weight: bold; }
 .inr-alto { color: red; font-weight: bold; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =============img========================================================================= */
+
+/* GRID GENERAL */
+.dosis-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+/* CARD DE CADA DÍA */
+.dia-card {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.dia-nombre {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* GRUPO DE PASTILLAS */
+.pastillas-group {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* LABEL (cada opción) */
+.pastillas-group label {
+    cursor: pointer;
+    text-align: center;
+}
+
+/* OCULTA RADIO */
+.pastillas-group input {
+    display: none;
+}
+
+/* IMÁGENES */
+.pastillas-group img {
+    width: 40px;
+    transition: 0.2s;
+}
+
+/* TEXTO */
+.pastillas-group span {
+    display: block;
+    font-size: 12px;
+}
+
+/* EFECTO SELECCIÓN */
+.pastillas-group input:checked + img {
+    transform: scale(1.2);
+    border: 2px solid #ff4b2b;
+    border-radius: 8px;
+}
