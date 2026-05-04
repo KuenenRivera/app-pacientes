@@ -59,12 +59,7 @@
                 <td>{{ r.nombre if r.nombre else "—" }}</td>
                 <td>{{ r.fecha }}</td>
 
-                <td class="
-                    {% if r.inr|float < 2 %}inr-bajo
-                    {% elif r.inr|float > 3 %}inr-alto
-                    {% else %}inr-normal
-                    {% endif %}
-                ">
+                <td class="inr-{{ 'bajo' if r.inr|float < 2 else 'alto' if r.inr|float > 3 else 'normal' }}">
                     {{ r.inr }}
                 </td>
 
@@ -93,16 +88,53 @@ document.getElementById("buscador").addEventListener("keyup", function() {
     let filtro = this.value.toLowerCase();
     let filas = document.querySelectorAll("#tabla tbody tr");
 
+    // Arrays para almacenar los datos filtrados
+    let registrosFiltrados = [];
+    let labelsFiltrados = [];
+    let dataINR = [];
+
     filas.forEach(fila => {
         let columnas = fila.querySelectorAll("td");
 
         let dni = columnas[0].innerText.toLowerCase();
         let nombre = columnas[1].innerText.toLowerCase();
 
+        // Filtrar filas según el texto introducido en el input
         if (dni.includes(filtro) || nombre.includes(filtro)) {
             fila.style.display = "";
+            // Almacenar los registros filtrados
+            registrosFiltrados.push({
+                dni: columnas[0].innerText,
+                nombre: columnas[1].innerText,
+                fecha: columnas[2].innerText,
+                inr: columnas[3].innerText
+            });
+            labelsFiltrados.push(columnas[2].innerText); // Fecha
+            dataINR.push(columnas[3].innerText); // INR
         } else {
             fila.style.display = "none";
+        }
+    });
+
+    // Actualizar el gráfico con los registros filtrados
+    const datos = {
+        labels: labelsFiltrados,
+        datasets: [{
+            label: 'INR',
+            data: dataINR,
+            borderWidth: 2,
+            tension: 0.3
+        }]
+    };
+
+    // Crear o actualizar el gráfico con los datos filtrados
+    const graficoINR = document.getElementById('graficoINR');
+    new Chart(graficoINR, {
+        type: 'line',
+        data: datos,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
         }
     });
 });
