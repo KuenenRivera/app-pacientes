@@ -168,20 +168,28 @@ def edicion(dni):
         if not fecha or not inr:
             return "Error: Debe completar fecha e INR"
 
-        dias = ["lunes","martes","miercoles","jueves","viernes","sabado","domingo"]
+        dias = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"]
 
+        # Validar que no haya dosis faltantes
         for dia in dias:
             if not request.form.get(dia):
                 return f"Error: Falta seleccionar dosis en {dia}"
 
-        dosis = {dia: request.form.get(dia) for dia in dias}
+        dosis = {dia: request.form.get(dia, '') for dia in dias}  # Asignar vacío si no está marcado
 
-        con = conectar()
-        cur = con.cursor()
-        cur.execute("INSERT INTO registros VALUES (NULL,?,?,?,?)",
-                    (dni, fecha, inr, json.dumps(dosis)))
-        con.commit()
-        con.close()
+        # Depurar las dosis antes de insertarlas
+        print(f"Dosis: {dosis}")
+
+        try:
+            con = conectar()
+            cur = con.cursor()
+            cur.execute("INSERT INTO registros VALUES (NULL,?,?,?,?)",
+                        (dni, fecha, inr, json.dumps(dosis)))
+            con.commit()
+            con.close()
+        except Exception as e:
+            print(f"Error al insertar registro: {e}")
+            return "Error al guardar el registro"
 
         return redirect("/")
 
@@ -215,13 +223,15 @@ def reporte():
     for f in filas:
         try:
             dosis = json.loads(f[4]) if f[4] else {}
-        except:
+        except Exception as e:
             dosis = {}
+            print(f"Error al convertir dosis: {e}")
 
         try:
             inr_valor = float(f[3]) if f[3] else 0
-        except:
+        except Exception as e:
             inr_valor = 0
+            print(f"Error al convertir INR: {e}")
 
         registros.append({
             "dni": f[0],
