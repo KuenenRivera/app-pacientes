@@ -9,7 +9,7 @@ if not os.path.exists("database.db"):
     cur = con.cursor()
 
     cur.execute("""
-    CREATE TABLE usuarios (
+    CREATE TABLE IF NOT EXISTS usuarios (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         dni TEXT,
         nombre TEXT,
@@ -19,7 +19,7 @@ if not os.path.exists("database.db"):
     """)
 
     cur.execute("""
-    CREATE TABLE registros (
+    CREATE TABLE IF NOT EXISTS registros (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         dni TEXT,
         fecha TEXT,
@@ -29,7 +29,7 @@ if not os.path.exists("database.db"):
     """)
 
     cur.execute("""
-    CREATE TABLE roles (
+    CREATE TABLE IF NOT EXISTS roles (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         usuario TEXT,
         password TEXT,
@@ -199,7 +199,7 @@ def edicion(dni):
 # -------------------------
 # DOCTOR → REPORTE (🔥 FIX COMPLETO)
 # -------------------------
-@app.route("/reporte")
+@app.route("/reporte", methods=["GET", "POST"])
 def reporte():
     if "usuario" not in session or session["rol"] != "doctor":
         return redirect("/login")

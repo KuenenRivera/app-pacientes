@@ -11,7 +11,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
-
 <body class="login-body">
 
 <div class="login-container">
@@ -84,6 +83,8 @@
 
 <!-- 🔎 BUSCADOR (FIX REAL) -->
 <script>
+let graficoINR = null; // Variable global para almacenar el gráfico
+
 document.getElementById("buscador").addEventListener("keyup", function() {
     let filtro = this.value.toLowerCase();
     let filas = document.querySelectorAll("#tabla tbody tr");
@@ -116,7 +117,7 @@ document.getElementById("buscador").addEventListener("keyup", function() {
         }
     });
 
-    // Actualizar el gráfico con los registros filtrados
+    // Crear los datos para el gráfico
     const datos = {
         labels: labelsFiltrados,
         datasets: [{
@@ -127,16 +128,22 @@ document.getElementById("buscador").addEventListener("keyup", function() {
         }]
     };
 
-    // Crear o actualizar el gráfico con los datos filtrados
-    const graficoINR = document.getElementById('graficoINR');
-    new Chart(graficoINR, {
-        type: 'line',
-        data: datos,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
-        }
-    });
+    // Crear o actualizar el gráfico
+    if (graficoINR) {
+        // Si el gráfico ya existe, actualizamos los datos
+        graficoINR.data = datos;
+        graficoINR.update();
+    } else {
+        // Si no existe, lo creamos por primera vez
+        graficoINR = new Chart(document.getElementById('graficoINR'), {
+            type: 'line',
+            data: datos,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    }
 });
 </script>
 
@@ -145,7 +152,8 @@ document.getElementById("buscador").addEventListener("keyup", function() {
 const labels = {{ registros | map(attribute='fecha') | list | tojson }};
 const dataINR = {{ registros | map(attribute='inr') | list | tojson }};
 
-new Chart(document.getElementById('graficoINR'), {
+// Inicializa el gráfico por primera vez
+graficoINR = new Chart(document.getElementById('graficoINR'), {
     type: 'line',
     data: {
         labels: labels,
