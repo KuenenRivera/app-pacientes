@@ -176,12 +176,16 @@ def edicion(dni):
 
         dosis = {dia: request.form.get(dia) for dia in dias}
 
-        con = conectar()
-        cur = con.cursor()
-        cur.execute("INSERT INTO registros VALUES (NULL,?,?,?,?)",
-                    (dni, fecha, inr, json.dumps(dosis)))
-        con.commit()
-        con.close()
+        # Usamos la función para guardar
+        guardar_en_bd("""
+        INSERT INTO registros (dni, fecha, inr, dosis)
+        VALUES (?, ?, ?, ?)
+        """, (
+            dni,
+            request.form["fecha"],
+            float(request.form["inr"]),
+            json.dumps(dosis)
+        ))
 
         return redirect("/")
 
@@ -218,6 +222,7 @@ def reporte():
         except:
             dosis = {}
 
+        # Convertimos INR a flotante para evitar errores con comparaciones
         try:
             inr_valor = float(f[3]) if f[3] else 0
         except:
